@@ -8,7 +8,7 @@ export default class Board {
     this.height = height;
   }
 
-  // Declare render function for Game class
+  // Declare render function for Board class
   render(svg) {
     // Declare the Board rectangle variable with its atributes
     let rect = document.createElementNS(SVG_NS, "rect");
