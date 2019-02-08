@@ -33,6 +33,14 @@ export default class Paddle {
     this.y = Math.min(this.y + this.speed, this.boardHeight - this.height);
   }
 
+  coordinates(x, y, width, height) {
+    let leftX = x;
+    let rightX = x + width;
+    let topY = y;
+    let bottomY = y + height;
+    return { leftX, rightX, topY, bottomY };
+  }
+
   // Declare render function for Paddle class
   render(svg) {
     // Declare the Paddle rectangle variable with its atributes
