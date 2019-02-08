@@ -10,13 +10,13 @@ export default class Board {
 
   // Declare render function for Board class
   render(svg) {
-    // Declare the Board rectangle variable with its atributes
+    // declare the Board rectangle variable with its atributes
     let rect = document.createElementNS(SVG_NS, "rect");
     rect.setAttributeNS(null, "width", this.width);
     rect.setAttributeNS(null, "height", this.height);
     rect.setAttributeNS(null, "fill", "#353535");
 
-    // Declare the mid-board line variable with its atributes
+    // declare the mid-board line variable with its atributes
     let line = document.createElementNS(SVG_NS, "line");
     line.setAttributeNS(null, "x1", this.width / 2);
     line.setAttributeNS(null, "y1", "0");
@@ -26,6 +26,7 @@ export default class Board {
     line.setAttributeNS(null, "stroke-width", "3");
     line.setAttributeNS(null, "stroke-dasharray", "20 15");
 
+    // append the Board to the SVG
     svg.appendChild(rect);
     svg.appendChild(line);
   }
