@@ -7,6 +7,7 @@ export default class Ball {
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
     this.direction = 1;
+    this.ping = new Audio("public/sounds/pong-01.wav");
 
     // Set x and y coordinates at the center
     this.reset();
@@ -53,6 +54,7 @@ export default class Ball {
         this.y <= bottomY
       ) {
         this.vx = -this.vx;
+        this.ping.play();
       }
     } else {
       // get player1 coordinates
@@ -70,13 +72,14 @@ export default class Ball {
         this.y <= bottomY
       ) {
         this.vx = -this.vx;
+        this.ping.play();
       }
     }
   }
 
   goal(player) {
-    this.player.score = this.player.score++;
-    reset();
+    player.score++;
+    this.reset();
   }
 
   render(svg, player1, player2) {
@@ -95,5 +98,17 @@ export default class Ball {
 
     // Append the Ball to the SVG
     svg.appendChild(circ);
+
+    // Detect a goal
+    const rightGoal = this.x + this.radius >= this.boardWidth;
+    const leftGoal = this.x - this.radius <= 0;
+
+    if (rightGoal) {
+      this.goal(player1);
+      this.direction = 1;
+    } else if (leftGoal) {
+      this.goal(player2);
+      this.direction = -1;
+    }
   }
 }

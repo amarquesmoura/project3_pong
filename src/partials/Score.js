@@ -1,0 +1,22 @@
+// Create alias for SVG namespace
+import { SVG_NS } from "../settings";
+
+export default class Score {
+  constructor(x, y, size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+  }
+
+  render(svg, score) {
+    // Declare the Paddle rectangle variable with its atributes
+    let text = document.createElementNS(SVG_NS, "text");
+    text.setAttributeNS(null, "font-family", "'Silkscreen Web', monotype");
+    text.setAttributeNS(null, "fill", "#FFF");
+    text.setAttributeNS(null, "x", this.x);
+    text.setAttributeNS(null, "y", this.y);
+    text.textContent = score;
+
+    svg.appendChild(text);
+  }
+}
