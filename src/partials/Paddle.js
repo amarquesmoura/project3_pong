@@ -11,30 +11,30 @@ export default class Paddle {
     this.y = y;
     this.speed = 10;
     this.score = 0;
-
+    
     // add a function for control keys
     document.addEventListener("keydown", event => {
       switch (event.key) {
         case upKey:
-          this.up();
-          break;
+        this.up();
+        break;
         case downKey:
-          this.down();
-          break;
+        this.down();
+        break;
       }
     });
   }
-
+  
   // Declare a function for moving up without going beyond board limits
   up() {
     this.y = Math.max(0, this.y - this.speed);
   }
-
+  
   // Declare a function for moving down without going beyond board limits
   down() {
     this.y = Math.min(this.y + this.speed, this.boardHeight - this.height);
   }
-
+  
   // Create an object with Paddle's coordinates
   coordinates(x, y, width, height) {
     let leftX = x;
@@ -43,7 +43,7 @@ export default class Paddle {
     let bottomY = y + height;
     return { leftX, rightX, topY, bottomY };
   }
-
+  
   // Declare render function for Paddle class
   render(svg) {
     // declare the Paddle rectangle variable with its atributes
@@ -53,7 +53,7 @@ export default class Paddle {
     rect.setAttributeNS(null, "x", this.x);
     rect.setAttributeNS(null, "y", this.y);
     rect.setAttributeNS(null, "fill", "#FFF");
-
+    
     // append the Paddle to the SVG
     svg.appendChild(rect);
   }

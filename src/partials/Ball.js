@@ -11,7 +11,7 @@ export default class Ball {
     this.ping = new Audio("public/sounds/pong-01.wav");
     this.reset();
   }
-
+  
   // Declares the Reset function
   reset() {
     // set ball x and y coordinates at the center of the Board
@@ -24,7 +24,7 @@ export default class Ball {
     }
     this.vx = this.direction * (6 - Math.abs(this.vy));
   }
-
+  
   // Declares the Wall Collision function
   wallCollision() {
     //set the min and max coordinates for the Ball
@@ -39,7 +39,7 @@ export default class Ball {
       this.vy = -this.vy;
     }
   }
-
+  
   // Declares the Paddle Collision function
   paddleCollinsion(player1, player2) {
     if (this.vx > 0) {
@@ -49,83 +49,84 @@ export default class Ball {
         player2.y,
         player2.width,
         player2.height
-      );
-      // deconstruct player object
-      let { leftX, topY, bottomY } = paddle;
-      // detect player2 collision
-      if (
-        this.x + this.radius >= leftX &&
-        this.y >= topY &&
-        this.y <= bottomY
-      ) {
-        // invert Ball direction
-        this.vx = -this.vx;
-        // play a sound
-        this.ping.play();
-      }
-    } else {
-      // get player1 coordinates
-      let paddle = player1.coordinates(
-        player1.x,
-        player1.y,
-        player1.width,
-        player1.height
-      );
-      // deconstruct player object
-      let { rightX, topY, bottomY } = paddle;
-      // detect player1 collision
-      if (
-        this.x - this.radius <= rightX &&
-        this.y >= topY &&
-        this.y <= bottomY
-      ) {
-        // invert Ball direction
-        this.vx = -this.vx;
-        // play a sound
-        this.ping.play();
-      }
-    }
-  }
-
-  // Declares the Goal function
-  goal(player) {
-    // add to player's score
-    player.score++;
-    // put Ball back at the center after a goal
-    this.reset();
-  }
-
-  // Declares the render function for Ball class
-  render(svg, player1, player2) {
-    // add movement vector to Ball's postion
-    this.x += this.vx;
-    this.y += this.vy;
-    // call collision functions
-    this.wallCollision();
-    this.paddleCollinsion(player1, player2);
-
-    // declare the Ball circle variable with its atributes
-    let circ = document.createElementNS(SVG_NS, "circle");
-    circ.setAttributeNS(null, "r", this.radius);
-    circ.setAttributeNS(null, "cx", this.x);
-    circ.setAttributeNS(null, "cy", this.y);
-    circ.setAttributeNS(null, "fill", "#FFF");
-
-    // append the Ball to the SVG
-    svg.appendChild(circ);
-
-    // declares right and left goal variables
-    const rightGoal = this.x + this.radius >= this.boardWidth;
-    const leftGoal = this.x - this.radius <= 0;
-    // check if a goal was scored
-    if (rightGoal) {
-      this.goal(player1);
-      // gives advantage to the scoring player
-      this.direction = 1;
-    } else if (leftGoal) {
-      this.goal(player2);
-      // gives advantage to the scoring player
-      this.direction = -1;
-    }
-  }
-}
+        );
+        // deconstruct player object
+        let { leftX, topY, bottomY } = paddle;
+        // detect player2 collision
+        if (
+          this.x + this.radius >= leftX &&
+          this.y >= topY &&
+          this.y <= bottomY
+          ) {
+            // invert Ball direction
+            this.vx = -this.vx;
+            // play a sound
+            this.ping.play();
+          }
+        } else {
+          // get player1 coordinates
+          let paddle = player1.coordinates(
+            player1.x,
+            player1.y,
+            player1.width,
+            player1.height
+            );
+            // deconstruct player object
+            let { rightX, topY, bottomY } = paddle;
+            // detect player1 collision
+            if (
+              this.x - this.radius <= rightX &&
+              this.y >= topY &&
+              this.y <= bottomY
+              ) {
+                // invert Ball direction
+                this.vx = -this.vx;
+                // play a sound
+                this.ping.play();
+              }
+            }
+          }
+          
+          // Declares the Goal function
+          goal(player) {
+            // add to player's score
+            player.score++;
+            // put Ball back at the center after a goal
+            this.reset();
+          }
+          
+          // Declares the render function for Ball class
+          render(svg, player1, player2) {
+            // add movement vector to Ball's postion
+            this.x += this.vx;
+            this.y += this.vy;
+            // call collision functions
+            this.wallCollision();
+            this.paddleCollinsion(player1, player2);
+            
+            // declare the Ball circle variable with its atributes
+            let circ = document.createElementNS(SVG_NS, "circle");
+            circ.setAttributeNS(null, "r", this.radius);
+            circ.setAttributeNS(null, "cx", this.x);
+            circ.setAttributeNS(null, "cy", this.y);
+            circ.setAttributeNS(null, "fill", "#FFF");
+            
+            // append the Ball to the SVG
+            svg.appendChild(circ);
+            
+            // declares right and left goal variables
+            const rightGoal = this.x + this.radius >= this.boardWidth;
+            const leftGoal = this.x - this.radius <= 0;
+            // check if a goal was scored
+            if (rightGoal) {
+              this.goal(player1);
+              // gives advantage to the scoring player
+              this.direction = 1;
+            } else if (leftGoal) {
+              this.goal(player2);
+              // gives advantage to the scoring player
+              this.direction = -1;
+            }
+          }
+        }
+        
