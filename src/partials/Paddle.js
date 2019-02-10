@@ -12,27 +12,39 @@ export default class Paddle {
     this.speed = 10;
     this.score = 0;
 
-    // add a function for control keys
-    document.addEventListener("keydown", event => {
-      switch (event.key) {
-        case upKey:
-          this.up();
-          break;
-        case downKey:
-          this.down();
-          break;
-      }
-    });
+    // check if the player is using a mobile device
+    // @source: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
+    function isMobileDevice() {
+      return (
+        typeof window.orientation !== "undefined" ||
+        navigator.userAgent.indexOf("IEMobile") !== -1
+      );
+    }
 
-    window.addEventListener("deviceorientation", event => {
-      if (event.gamma > 0) {
-        this.up();
-      } else if (event.gamma < 0) {
-        this.down();
-      } else {
-        return;
-      }
-    });
+    if (isMobileDevice) {
+      // add a function for motion control
+      window.addEventListener("deviceorientation", event => {
+        if (event.gamma > 0) {
+          this.up();
+        } else if (event.gamma < 0) {
+          this.down();
+        } else {
+          return;
+        }
+      });
+    } else {
+      // add a function for control keys
+      document.addEventListener("keydown", event => {
+        switch (event.key) {
+          case upKey:
+            this.up();
+            break;
+          case downKey:
+            this.down();
+            break;
+        }
+      });
+    }
   }
 
   // Declare a function for moving up without going beyond board limits
