@@ -4,6 +4,8 @@ import { SVG_NS, KEYS } from "../settings";
 // Import Game elements classes
 import Board from "./Board";
 import Paddle from "./Paddle";
+import MobilePlayer from "./MobilePlayer";
+import ComputerPlayer from "./ComputerPlayer";
 import Ball from "./Ball";
 import Score from "./Score";
 
@@ -19,25 +21,53 @@ export default class Game {
     this.paddleWidth = 8;
     this.paddleHeight = 56;
     this.boardGap = 10;
-    // instantiate the players
-    this.player1 = new Paddle(
-      this.height,
-      this.paddleWidth,
-      this.paddleHeight,
-      this.boardGap,
-      (this.height - this.paddleHeight) / 2,
-      KEYS.a,
-      KEYS.z
-    );
-    this.player2 = new Paddle(
-      this.height,
-      this.paddleWidth,
-      this.paddleHeight,
-      this.width - this.paddleWidth - this.boardGap,
-      (this.height - this.paddleHeight) / 2,
-      KEYS.up,
-      KEYS.down
-    );
+
+    // check if the player is using a mobile device
+    // @source: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
+    function isMobileDevice() {
+      return (
+        typeof window.orientation !== "undefined" ||
+        navigator.userAgent.indexOf("IEMobile") !== -1
+      );
+    }
+
+    if (isMobileDevice()) {
+      this.player1 = new ComputerPlayer(
+        this.height,
+        this.paddleWidth,
+        this.paddleHeight,
+        this.boardGap,
+        (this.height - this.paddleHeight) / 2
+      );
+      this.player2 = new MobilePlayer(
+        this.height,
+        this.paddleWidth,
+        this.paddleHeight,
+        this.width - this.paddleWidth - this.boardGap,
+        (this.height - this.paddleHeight) / 2
+      );
+    } else {
+      // instantiate the 2 players on desktop
+      this.player1 = new Paddle(
+        this.height,
+        this.paddleWidth,
+        this.paddleHeight,
+        this.boardGap,
+        (this.height - this.paddleHeight) / 2,
+        KEYS.a,
+        KEYS.z
+      );
+      this.player2 = new Paddle(
+        this.height,
+        this.paddleWidth,
+        this.paddleHeight,
+        this.width - this.paddleWidth - this.boardGap,
+        (this.height - this.paddleHeight) / 2,
+        KEYS.up,
+        KEYS.down
+      );
+    }
+
     // set properties for the ball
     this.radius = 8;
     // instantiate the Ball

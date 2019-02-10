@@ -2,7 +2,7 @@
 import { SVG_NS } from "../settings";
 
 // Declare the Paddle class
-export default class Paddle {
+export default class MobilePlayer {
   constructor(boardHeight, width, height, x, y, upKey, downKey) {
     this.boardHeight = boardHeight;
     this.width = width;
@@ -12,15 +12,14 @@ export default class Paddle {
     this.speed = 10;
     this.score = 0;
 
-    // add a function for control keys
-    document.addEventListener("keydown", event => {
-      switch (event.key) {
-        case upKey:
-          this.up();
-          break;
-        case downKey:
-          this.down();
-          break;
+    // add a function for motion control
+    window.addEventListener("deviceorientation", event => {
+      if (event.gamma > 0) {
+        this.up();
+      } else if (event.gamma < 0) {
+        this.down();
+      } else {
+        return;
       }
     });
   }
