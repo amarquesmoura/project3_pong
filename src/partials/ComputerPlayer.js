@@ -12,16 +12,7 @@ export default class ComputerPlayer {
     this.speed = 10;
     this.score = 0;
 
-    // add a function for motion control
-    window.addEventListener("deviceorientation", event => {
-      if (event.gamma > 0) {
-        this.up();
-      } else if (event.gamma < 0) {
-        this.down();
-      } else {
-        return;
-      }
-    });
+    
   }
 
   // Declare a function for moving up without going beyond board limits
