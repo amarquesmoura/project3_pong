@@ -9,7 +9,7 @@ export default class ComputerPlayer {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 3;
+    this.speed = 5;
     this.score = 0;
 
     // create a function to control Computer's paddle
