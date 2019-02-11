@@ -9,7 +9,7 @@ export default class ComputerPlayer {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 4;
+    this.speed = 2;
     this.score = 0;
 
     // add a function for motion control
