@@ -9,10 +9,10 @@ export default class ComputerPlayer {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 5;
+    this.speed = 10;
     this.score = 0;
 
-    // create a function to control Computer's paddle
+    // add a function for motion control
     window.addEventListener("deviceorientation", event => {
       if (event.beta > 0) {
         this.up();
