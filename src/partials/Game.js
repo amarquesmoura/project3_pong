@@ -32,14 +32,14 @@ export default class Game {
     }
 
     if (isMobileDevice()) {
-      this.player1 = new ComputerPlayer(
+      this.player1 = new MobilePlayer(
         this.height,
         this.paddleWidth,
         this.paddleHeight,
         this.boardGap,
         (this.height - this.paddleHeight) / 2
       );
-      this.player2 = new MobilePlayer(
+      this.player2 = new ComputerPlayer(
         this.height,
         this.paddleWidth,
         this.paddleHeight,

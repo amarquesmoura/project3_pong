@@ -3,16 +3,14 @@ import { SVG_NS } from "../settings";
 
 // Declare the Paddle class
 export default class ComputerPlayer {
-  constructor(boardHeight, width, height, x, y, upKey, downKey) {
+  constructor(boardHeight, width, height, x, y) {
     this.boardHeight = boardHeight;
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 10;
+    this.speed = 1;
     this.score = 0;
-
-    
   }
 
   // Declare a function for moving up without going beyond board limits
@@ -32,6 +30,13 @@ export default class ComputerPlayer {
     let topY = y;
     let bottomY = y + height;
     return { leftX, rightX, topY, bottomY };
+  }
+
+  controlPaddle() {
+    let computerPlayerLevel = 2;
+    let computerPlayerCenter = this.topY + this.height / 2;
+    let dy = Math.min(computerPlayerLevel, Math.abs(this.ball.y - computerPlayerCenter));
+    computerPlayerCenter += this.ball.y > computerPlayerCenter ? dy : -dy
   }
 
   // Declare render function for Paddle class
