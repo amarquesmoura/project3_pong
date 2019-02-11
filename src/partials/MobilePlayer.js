@@ -3,13 +3,13 @@ import { SVG_NS } from "../settings";
 
 // Declare the Paddle class
 export default class MobilePlayer {
-  constructor(boardHeight, width, height, x, y, upKey, downKey) {
+  constructor(boardHeight, width, height, x, y) {
     this.boardHeight = boardHeight;
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 1;
+    this.speed = 2;
     this.score = 0;
 
     // add a function for motion control

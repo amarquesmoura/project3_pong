@@ -11,6 +11,17 @@ export default class ComputerPlayer {
     this.y = y;
     this.speed = 1;
     this.score = 0;
+
+    // create a function to control Computer's paddle
+    window.addEventListener("deviceorientation", event => {
+      if (event.beta > 0) {
+        this.up();
+      } else if (event.beta < 0) {
+        this.down();
+      } else {
+        return;
+      }
+    });
   }
 
   // Declare a function for moving up without going beyond board limits
@@ -30,13 +41,6 @@ export default class ComputerPlayer {
     let topY = y;
     let bottomY = y + height;
     return { leftX, rightX, topY, bottomY };
-  }
-
-  controlPaddle() {
-    let computerPlayerLevel = 2;
-    let computerPlayerCenter = this.topY + this.height / 2;
-    let dy = Math.min(computerPlayerLevel, Math.abs(this.ball.y - computerPlayerCenter));
-    computerPlayerCenter += this.ball.y > computerPlayerCenter ? dy : -dy
   }
 
   // Declare render function for Paddle class
