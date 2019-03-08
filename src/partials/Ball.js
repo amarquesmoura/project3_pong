@@ -87,6 +87,22 @@ export default class Ball {
     }
   }
 
+  goalScore(player1, player2) {
+    // declares right and left goal variables
+    const rightGoal = this.x + this.radius >= this.boardWidth;
+    const leftGoal = this.x - this.radius <= 0;
+    // check if a goal was scored
+    if (rightGoal) {
+      this.goal(player1);
+      // gives advantage to the scoring player
+      this.direction = 1;
+    } else if (leftGoal) {
+      this.goal(player2);
+      // gives advantage to the scoring player
+     this.direction = -1;
+    }
+  }
+
   // Declares the Goal function
   goal(player) {
     // add to player's score
@@ -104,6 +120,8 @@ export default class Ball {
     this.wallCollision();
     this.paddleCollinsion(player1, player2);
 
+    this.goalScore(player1, player2);
+
     // declare the Ball circle variable with its atributes
     let circ = document.createElementNS(SVG_NS, "circle");
     circ.setAttributeNS(null, "r", this.radius);
@@ -113,19 +131,5 @@ export default class Ball {
 
     // append the Ball to the SVG
     svg.appendChild(circ);
-
-    // declares right and left goal variables
-    const rightGoal = this.x + this.radius >= this.boardWidth;
-    const leftGoal = this.x - this.radius <= 0;
-    // check if a goal was scored
-    if (rightGoal) {
-      this.goal(player1);
-      // gives advantage to the scoring player
-      this.direction = 1;
-    } else if (leftGoal) {
-      this.goal(player2);
-      // gives advantage to the scoring player
-      this.direction = -1;
-    }
   }
 }
